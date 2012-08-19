@@ -1,0 +1,12 @@
+<%= simple_form_for @advertisement, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :content %>
+  <%= f.input :create_date %>
+  <%= f.input :publicate_date %>
+  <%= f.input :phone_number %>
+  <%= f.input :life_cycle %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                advertisements_path, :class => 'btn' %>
+  </div>
+<% end %>
