@@ -30,6 +30,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'libnotify'
+  gem 'factory_girl_rails'
 end
 
 gem 'enumerize'

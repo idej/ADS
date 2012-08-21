@@ -1,9 +1,10 @@
 class AdvertisementsController < ApplicationController
+
   # GET /advertisements
   # GET /advertisements.json
   def index
     @advertisements = Advertisement.all
-
+    @user1 ||= User.new
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @advertisements }

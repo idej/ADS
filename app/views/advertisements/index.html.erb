@@ -39,6 +39,8 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_advertisement_path,
-            :class => 'btn btn-primary' %>
+<% if can? :create, Advertisement %>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_advertisement_path,
+              :class => 'btn btn-primary' %>
+<% end %>
