@@ -7,7 +7,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :first_name,         :null => false, :default => ""
       t.string :middle_name,         :null => false, :default => ""
       t.string :last_name,          :null => false, :default => ""
-      t.boolean :admin,             :default => false
+      t.string :role
 
       ## Recoverable
       t.string   :reset_password_token

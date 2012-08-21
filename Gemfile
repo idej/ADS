@@ -7,7 +7,7 @@ gem 'rails', '3.2.6'
 
 gem 'mysql2'
 gem 'devise'
-
+gem 'cancan'
 gem 'paperclip'
 gem 'rmagick'
 
@@ -32,6 +32,7 @@ group :development, :test do
   gem 'libnotify'
 end
 
+gem 'enumerize'
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
