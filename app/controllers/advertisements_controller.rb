@@ -1,5 +1,5 @@
 class AdvertisementsController < ApplicationController
-
+  load_and_authorize_resource :only => [:new,:destroy,:edit,:update]
   # GET /advertisements
   # GET /advertisements.json
   def index

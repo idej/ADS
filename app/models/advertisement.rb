@@ -1,5 +1,5 @@
 class Advertisement < ActiveRecord::Base
-
+  validates :content, :phone_number, :presence => true
   belongs_to :user
 
   # attr_accessible :title, :body

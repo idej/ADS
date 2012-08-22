@@ -5,10 +5,15 @@ class Ability
     user ||= User.new # guest user
 
     if user.role == "admin"
-      can :manage, :all
+      can :read, Advertisement
+      can :destroy, Advertisement
     elsif user.persisted?
       if user.role == "user"
         can :create, Advertisement
+        can :read, Advertisement
+        can :update, Advertisement do |ads|
+          ads.try(:user) == user
+        end
       end
     else
       can :read, Advertisement
