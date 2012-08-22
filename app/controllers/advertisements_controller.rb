@@ -4,7 +4,6 @@ class AdvertisementsController < ApplicationController
   # GET /advertisements.json
   def index
     @advertisements = Advertisement.all
-    @user1 ||= User.new
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @advertisements }
@@ -41,7 +40,7 @@ class AdvertisementsController < ApplicationController
   # POST /advertisements
   # POST /advertisements.json
   def create
-    @advertisement = Advertisement.new(params[:advertisement])
+    @advertisement = current_user.advertisements.new(params[:advertisement])
 
     respond_to do |format|
       if @advertisement.save
