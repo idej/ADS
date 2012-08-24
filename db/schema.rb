@@ -11,17 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822102954) do
+ActiveRecord::Schema.define(:version => 20120823090024) do
 
   create_table "advertisements", :force => true do |t|
     t.text     "content"
     t.datetime "create_date"
     t.datetime "publicate_date"
     t.string   "phone_number"
-    t.string   "life_cycle"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "user_id"
+    t.string   "state"
   end
 
   create_table "users", :force => true do |t|
