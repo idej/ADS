@@ -18,49 +18,48 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
+def valid_attributes
+  {
+    :content => "1231231",
+    :phone_number => '123123'
+  }
+end
+
 describe AdvertisementsController do
 
-  # This should return the minimal set of attributes required to create a valid
-  # Advertisement. As you add validations to Advertisement, be sure to
-  # update the return value of this method accordingly.
-  def valid_attributes
-    {}
-  end
-  
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # AdvertisementsController. Be sure to keep this updated too.
-  def valid_session
-    {}
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    test_sign_in(@user)
   end
 
   describe "GET index" do
     it "assigns all advertisements as @advertisements" do
-      advertisement = Advertisement.create! valid_attributes
-      get :index, {}, valid_session
+      advertisement = FactoryGirl.create(:advertisement)
+      get :index
       assigns(:advertisements).should eq([advertisement])
     end
   end
 
   describe "GET show" do
     it "assigns the requested advertisement as @advertisement" do
-      advertisement = Advertisement.create! valid_attributes
-      get :show, {:id => advertisement.to_param}, valid_session
+      advertisement = FactoryGirl.create(:advertisement)
+      get :show, {:id => advertisement.to_param}
       assigns(:advertisement).should eq(advertisement)
     end
   end
 
   describe "GET new" do
     it "assigns a new advertisement as @advertisement" do
-      get :new, {}, valid_session
+      get :new, {}
       assigns(:advertisement).should be_a_new(Advertisement)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested advertisement as @advertisement" do
-      advertisement = Advertisement.create! valid_attributes
-      get :edit, {:id => advertisement.to_param}, valid_session
+      advertisement = FactoryGirl.create(:advertisement)
+      @user.advertisements << advertisement
+      get :edit, {:id => advertisement.to_param}
       assigns(:advertisement).should eq(advertisement)
     end
   end
@@ -69,35 +68,33 @@ describe AdvertisementsController do
     describe "with valid params" do
       it "creates a new Advertisement" do
         expect {
-          post :create, {:advertisement => valid_attributes}, valid_session
+          post :create, {:advertisement => valid_attributes}
         }.to change(Advertisement, :count).by(1)
       end
 
       it "assigns a newly created advertisement as @advertisement" do
-        post :create, {:advertisement => valid_attributes}, valid_session
+        post :create, {:advertisement => valid_attributes}
         assigns(:advertisement).should be_a(Advertisement)
         assigns(:advertisement).should be_persisted
       end
 
       it "redirects to the created advertisement" do
-        post :create, {:advertisement => valid_attributes}, valid_session
+        post :create, {:advertisement => valid_attributes}
         response.should redirect_to(Advertisement.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved advertisement as @advertisement" do
-        # Trigger the behavior that occurs when invalid params are submitted
         Advertisement.any_instance.stub(:save).and_return(false)
-        post :create, {:advertisement => {}}, valid_session
+        post :create, {:advertisement => {}}
         assigns(:advertisement).should be_a_new(Advertisement)
       end
 
       it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
         Advertisement.any_instance.stub(:save).and_return(false)
-        post :create, {:advertisement => {}}, valid_session
-        response.should render_template("new")
+        post :create, {:advertisement => {}}
+        response.should redirect_to('/advertisements')
       end
     end
   end
@@ -105,60 +102,66 @@ describe AdvertisementsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested advertisement" do
-        advertisement = Advertisement.create! valid_attributes
-        # Assuming there are no other advertisements in the database, this
-        # specifies that the Advertisement created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
+        advertisement = FactoryGirl.create(:advertisement)
+        @user.advertisements << advertisement
         Advertisement.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => advertisement.to_param, :advertisement => {'these' => 'params'}}, valid_session
+        put :update, {:id => advertisement.to_param, :advertisement => {'these' => 'params'}}
       end
 
       it "assigns the requested advertisement as @advertisement" do
-        advertisement = Advertisement.create! valid_attributes
-        put :update, {:id => advertisement.to_param, :advertisement => valid_attributes}, valid_session
+        advertisement = FactoryGirl.create(:advertisement)
+        @user.advertisements << advertisement
+        put :update, {:id => advertisement.to_param, :advertisement => valid_attributes}
         assigns(:advertisement).should eq(advertisement)
       end
 
       it "redirects to the advertisement" do
-        advertisement = Advertisement.create! valid_attributes
-        put :update, {:id => advertisement.to_param, :advertisement => valid_attributes}, valid_session
+        advertisement = FactoryGirl.create(:advertisement)
+        @user.advertisements << advertisement
+        put :update, {:id => advertisement.to_param, :advertisement => valid_attributes}
         response.should redirect_to(advertisement)
       end
     end
 
     describe "with invalid params" do
       it "assigns the advertisement as @advertisement" do
-        advertisement = Advertisement.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
+        advertisement = FactoryGirl.create(:advertisement)
+        @user.advertisements << advertisement
         Advertisement.any_instance.stub(:save).and_return(false)
-        put :update, {:id => advertisement.to_param, :advertisement => {}}, valid_session
+        put :update, {:id => advertisement.to_param, :advertisement => {}}
         assigns(:advertisement).should eq(advertisement)
       end
 
       it "re-renders the 'edit' template" do
-        advertisement = Advertisement.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
+        advertisement = FactoryGirl.create(:advertisement)
+        @user.advertisements << advertisement
         Advertisement.any_instance.stub(:save).and_return(false)
-        put :update, {:id => advertisement.to_param, :advertisement => {}}, valid_session
-        response.should render_template("edit")
+        put :update, {:id => advertisement.to_param, :advertisement => {}}
+        response.should redirect_to(advertisement)
       end
     end
+  end
+end
+
+describe AdvertisementsController do
+
+  before(:each) do
+    @admin = FactoryGirl.create(:admin)
+    test_sign_in(@admin)
   end
 
   describe "DELETE destroy" do
     it "destroys the requested advertisement" do
       advertisement = Advertisement.create! valid_attributes
       expect {
-        delete :destroy, {:id => advertisement.to_param}, valid_session
+        delete :destroy, {:id => advertisement.to_param}
       }.to change(Advertisement, :count).by(-1)
     end
 
     it "redirects to the advertisements list" do
       advertisement = Advertisement.create! valid_attributes
-      delete :destroy, {:id => advertisement.to_param}, valid_session
+      delete :destroy, {:id => advertisement.to_param}
       response.should redirect_to(advertisements_url)
     end
   end
-
 end

@@ -16,3 +16,9 @@
 
 #Ignore idea files
 /.idea
+
+#Ignore folder of gem simplecov
+/coverage
+
+#Ignore database settings
+/config/database.yml

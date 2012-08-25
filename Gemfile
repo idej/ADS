@@ -29,12 +29,17 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
+  gem 'capybara'
   gem 'libnotify'
   gem 'factory_girl_rails'
+  gem 'simplecov', :require => false
+  gem 'database_cleaner'
+  gem 'email_spec'
 end
 
 gem 'enumerize'
 gem 'jquery-rails'
+gem 'fuubar'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

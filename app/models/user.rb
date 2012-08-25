@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include Enumerize
 
-  has_many :advertisements
+  has_many :advertisements, :dependent => :delete_all
 
   # Include default devise modules. Others available are:
   # :encryptable and :omniauthable
@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
          :token_authenticatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :confirmed_at
   # attr_accessible :title, :body
 
   enumerize :role, :in => [:user, :admin], :default => :user

@@ -1,5 +1,5 @@
 class CreateAdvertisements < ActiveRecord::Migration
-  def up
+  def change
     create_table :advertisements do |t|
       t.text :content
       t.datetime :create_date
@@ -8,9 +8,5 @@ class CreateAdvertisements < ActiveRecord::Migration
       t.string :life_cycle
       t.timestamps
     end
-  end
-
-  def down
-    drop_table :advertisements
   end
 end

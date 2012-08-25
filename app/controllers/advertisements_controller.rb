@@ -1,83 +1,43 @@
 class AdvertisementsController < ApplicationController
+  respond_to :html
   load_and_authorize_resource :only => [:new,:destroy,:edit,:update]
-  # GET /advertisements
-  # GET /advertisements.json
+
   def index
     @advertisements = Advertisement.all
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @advertisements }
-    end
+    respond_with @advertisements # index.html.erb
   end
 
-  # GET /advertisements/1
-  # GET /advertisements/1.json
   def show
     @advertisement = Advertisement.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @advertisement }
-    end
+    respond_with @advertisement # show.html.erb
   end
 
-  # GET /advertisements/new
-  # GET /advertisements/new.json
   def new
     @advertisement = Advertisement.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @advertisement }
-    end
+    respond_with @advertisement # new.html.erb
   end
 
-  # GET /advertisements/1/edit
   def edit
     @advertisement = Advertisement.find(params[:id])
+    respond_with @advertisement
   end
 
-  # POST /advertisements
-  # POST /advertisements.json
   def create
     @advertisement = current_user.advertisements.new(params[:advertisement])
-
-    respond_to do |format|
-      if @advertisement.save
-        format.html { redirect_to @advertisement, notice: 'Advertisement was successfully created.' }
-        format.json { render json: @advertisement, status: :created, location: @advertisement }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @advertisement.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "Advertisement was successfully created." if @advertisement.save
+    respond_with(@advertisement)
   end
 
-  # PUT /advertisements/1
-  # PUT /advertisements/1.json
   def update
     @advertisement = Advertisement.find(params[:id])
-
-    respond_to do |format|
-      if @advertisement.update_attributes(params[:advertisement])
-        format.html { redirect_to @advertisement, notice: 'Advertisement was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @advertisement.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "Advertisement was successfully updated." if @advertisement.update_attributes(params[:advertisement])
+    respond_with @advertisement
   end
 
-  # DELETE /advertisements/1
-  # DELETE /advertisements/1.json
   def destroy
     @advertisement = Advertisement.find(params[:id])
     @advertisement.destroy
-
-    respond_to do |format|
-      format.html { redirect_to advertisements_url }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "Successfully destroyed advertisement."
+    respond_with @advertisement
   end
 end
