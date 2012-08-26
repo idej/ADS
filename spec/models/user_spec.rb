@@ -5,4 +5,5 @@ describe User do
     user = FactoryGirl.create(:user)
     user.role.should == "user"
   end
+
 end
