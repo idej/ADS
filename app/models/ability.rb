@@ -11,10 +11,12 @@ class Ability
   def user
     can [:create, :read], Advertisement
     can :update, Advertisement, :user_id => @user.id
+    can [:update, :read], User, :id => @user.id
   end
 
   def admin
     can [:read, :destroy], Advertisement
+    can :manage, User
   end
 
   def guest
