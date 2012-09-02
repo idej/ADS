@@ -41,11 +41,8 @@ class AdvertisementsController < ApplicationController
         @advertisement.approve!
       when 'cancel'
         @advertisement.cancel!
-      when 'published'
-        @advertisement.publish!
-      when 'archived'
-        @advertisement.archive!
     end
     @states = @advertisement.possible_states(current_user)
   end
 end
+
