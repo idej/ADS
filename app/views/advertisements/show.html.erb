@@ -4,6 +4,8 @@
 </div>
 
 <dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:type) %>:</strong></dt>
+  <dd><%= advertisement_type(@advertisement.type_id) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
   <dd><%= @advertisement.content %></dd>
   <dt><strong><%= model_class.human_attribute_name(:phone_number) %>:</strong></dt>
@@ -13,11 +15,11 @@
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               advertisements_path, :class => 'btn'  %>
-  <% if can? :update, Advertisement %>
+  <% if can? :update, @advertisement %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_advertisement_path(@advertisement), :class => 'btn' %>
   <% end %>
-  <% if can? :destroy, Advertisement %>
+  <% if can? :destroy, @advertisement %>
     <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                 advertisement_path(@advertisement),
                 :method => 'delete',

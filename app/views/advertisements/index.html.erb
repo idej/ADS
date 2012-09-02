@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th><%= model_class.human_attribute_name(:id) %></th>
+        <th><%= model_class.human_attribute_name(:type) %></th>
         <th><%= model_class.human_attribute_name(:content) %></th>
         <th><%= model_class.human_attribute_name(:phone_number) %></th>
         <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -16,6 +17,7 @@
       <% @advertisements.each do |advertisement| %>
         <tr>
           <td><%= link_to advertisement.id, advertisement_path(advertisement) %></td>
+          <td><%= advertisement_type(advertisement.type_id) %></td>
           <td><%= advertisement.content %></td>
           <td><%= advertisement.phone_number %></td>
           <td>

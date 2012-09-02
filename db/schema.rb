@@ -11,17 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823090024) do
+ActiveRecord::Schema.define(:version => 20120831162813) do
 
   create_table "advertisements", :force => true do |t|
     t.text     "content"
-    t.datetime "create_date"
     t.datetime "publicate_date"
     t.string   "phone_number"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "user_id"
     t.string   "state"
+    t.integer  "type_id"
+  end
+
+  create_table "photos", :force => true do |t|
+    t.integer  "advertisement_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  create_table "types", :force => true do |t|
+    t.string   "type_name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
