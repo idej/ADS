@@ -1,36 +1,44 @@
-<%- model_class = Type -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:type_name) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @types.each do |type| %>
+<% if can? :read, Type %>
+  <%- model_class = Type -%>
+  <div class="page-header">
+    <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  </div>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= link_to type.id, type_path(type) %></td>
-        <td><%= type.type_name %></td>
-        <td><%=l type.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_type_path(type), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      type_path(type),
-                      :method => :delete,
-                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
+        <th><%= model_class.human_attribute_name(:id) %></th>
+        <th><%= model_class.human_attribute_name(:type_name) %></th>
+        <th><%= model_class.human_attribute_name(:created_at) %></th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @types.each do |type| %>
+        <tr>
+          <td><%= link_to type.id, type_path(type) %></td>
+          <td><%= type.type_name %></td>
+          <td><%=l type.created_at %></td>
+          <td>
+            <% if can? :update, type %>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_type_path(type), :class => 'btn btn-mini' %>
+            <% end %>
+            <% if (can? :destroy, type) && type.can_be_destroy? %>
+                <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          type_path(type),
+                          :method => :delete,
+                          :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                          :class => 'btn btn-mini btn-danger' %>
+            <% end %>              
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_type_path,
-            :class => 'btn btn-primary' %>
+  <% if can? :create, Type %>
+    <%= link_to t('.new', :default => t("helpers.links.new")),
+                new_type_path,
+                :class => 'btn btn-primary' %>
+  <% end %>              
+<% end %>

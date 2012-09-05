@@ -17,7 +17,7 @@
       <% @advertisements.each do |advertisement| %>
         <tr>
           <td><%= link_to advertisement.id, advertisement_path(advertisement) %></td>
-          <td><%= advertisement_type(advertisement.type_id) %></td>
+          <td><%= advertisement.type.type_name %></td>
           <td><%= advertisement.content %></td>
           <td><%= advertisement.phone_number %></td>
           <td>
