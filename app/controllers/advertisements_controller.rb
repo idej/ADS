@@ -7,22 +7,6 @@ class AdvertisementsController < ApplicationController
     respond_with @advertisements #index.html.erb
   end
 
-  def new
-    types = Type.all
-    @type_array = Array.new
-    types.each do |t|
-      @type_array << [t.type_name, t.id]
-    end
-  end
-
-  def edit
-    types = Type.all
-    @type_array = Array.new
-    types.each do |t|
-      @type_array << [t.type_name, t.id]
-    end
-  end
-
   def show
     @advertisement = Advertisement.find(params[:id])
     respond_with @advertisement # show.html.erb
