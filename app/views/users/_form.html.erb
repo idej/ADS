@@ -1,7 +1,6 @@
 <%= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :email %>
   <%= f.input :first_name %>
-  <%= f.input :middle_name %>
   <%= f.input :last_name %>
   <% if can? :change_role, User %>
     <%= f.input :role %>
