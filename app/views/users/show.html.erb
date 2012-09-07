@@ -3,17 +3,17 @@
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
 </div>
 
-<dl class="dl-horizontal">                 raisl
+<dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @user.email %></dd>
   <dt><strong><%= model_class.human_attribute_name(:first_name) %>:</strong></dt>
   <dd><%= @user.first_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:middle_name) %>:</strong></dt>
-  <dd><%= @user.middle_name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:last_name) %>:</strong></dt>
   <dd><%= @user.last_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:role) %>:</strong></dt>
-  <dd><%= @user.role %></dd>
+  <% if can? :change_role, User %>
+    <dt><strong><%= model_class.human_attribute_name(:role) %>:</strong></dt>
+    <dd><%= @user.role %></dd>
+  <% end %>
 </dl>
 
 <div class="form-actions">

@@ -22,3 +22,4 @@
 
 #Ignore database settings
 /config/database.yml
+/config/database.yml.example~

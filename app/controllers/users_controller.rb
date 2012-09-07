@@ -3,12 +3,19 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def create
+    if can? :change_role, @user
+      @user.role = params[:user][:role]
+    else
+      @user.role = :user
+    end
     @user = user.new(params[:user])
+    @user.role = :user
     flash[:notice] = "User was successfully created." if @user.save
     respond_with(@user)
   end
 
   def update
+    @user.role = params[:user][:role] if can? :change_role, @user
     flash[:notice] = "Update was successfully." if @user.update_attributes(params[:user])
     respond_with @user
   end
@@ -18,6 +25,4 @@ class UsersController < ApplicationController
     flash[:notice] = "Successfully destroyed advertisement."
     respond_with @user
   end
-
-
 end
