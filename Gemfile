@@ -10,6 +10,7 @@ gem 'devise'
 gem 'cancan'
 gem 'paperclip'
 gem 'rmagick'
+gem 'state_machine'
 
 
 # Gems used only for assets and not required

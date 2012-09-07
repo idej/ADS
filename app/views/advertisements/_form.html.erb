@@ -2,6 +2,7 @@
   <%= f.input :content %>
   <%= f.input :phone_number %>
   <%= f.association :type, :include_blank => false, :label_method => lambda { |type| "#{type.type_name}"} %>
+  <%= f.input :state, :include_blank => false, :collection => @advertisement.possible_states(current_user) %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

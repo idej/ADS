@@ -12,4 +12,11 @@ FactoryGirl.define do
     password_confirmation 'please'
     role 'admin'
   end
+
+  factory :confirm_user, class: User do
+    email 'user@example.com'
+    password 'please'
+    password_confirmation 'please'
+    confirmed_at DateTime.now
+  end
 end
