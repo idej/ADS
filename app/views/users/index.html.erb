@@ -9,17 +9,14 @@
         <th><%= model_class.human_attribute_name(:id) %></th>
         <th><%= model_class.human_attribute_name(:email) %></th>
         <th><%= model_class.human_attribute_name(:first_name) %></th>
-        <th><%= model_class.human_attribute_name(:middle_name) %></th>
         <th><%= model_class.human_attribute_name(:last_name) %></th>
-        <th><%= model_class.human_attribute_name(:role) %></th>
+        <% if can? :manage, User %>
+            <th><%= model_class.human_attribute_name(:role) %></th>
+        <% end %>
         <th><%= model_class.human_attribute_name(:sign_in_count) %></th>
         <th><%= model_class.human_attribute_name(:current_sign_in_at) %></th>
         <th><%= model_class.human_attribute_name(:last_sign_in_at) %></th>
-        <th><%= model_class.human_attribute_name(:current_sign_in_ip) %></th>
-        <th><%= model_class.human_attribute_name(:last_sign_in_ip) %></th>
         <th><%= model_class.human_attribute_name(:confirmed_at) %></th>
-        <th><%= model_class.human_attribute_name(:confirmation_sent_at) %></th>
-        <th><%= model_class.human_attribute_name(:unconfirmed_email) %></th>
         <th><%= model_class.human_attribute_name(:created_at) %></th>
         <th><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
@@ -30,17 +27,14 @@
           <td><%= link_to user.id, user_path(user) %></td>
           <td><%= user.email %></td>
           <td><%= user.first_name %></td>
-          <td><%= user.middle_name %></td>
           <td><%= user.last_name %></td>
-          <td><%= user.role %></td>
+          <% if can? :manage, User %>
+            <td><%= user.role %></td>
+          <% end %>
           <td><%= user.sign_in_count %></td>
           <td><%= user.current_sign_in_at %></td>
           <td><%= user.last_sign_in_at %></td>
-          <td><%= user.current_sign_in_ip %></td>
-          <td><%= user.last_sign_in_ip %></td>
           <td><%= user.confirmed_at %></td>
-          <td><%= user.confirmation_sent_at %></td>
-          <td><%= user.unconfirmed_email %></td>
           <td><%=l user.created_at %></td>
           <td>
             <% if can? :update, user %>
@@ -60,9 +54,4 @@
     </tbody>
   </table>
 
-  <% if can? :create, User %>
-    <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_user_path,
-              :class => 'btn btn-primary' %>
-  <% end %>
 <% end %>

@@ -1,5 +1,5 @@
 class AdvertisementsController < ApplicationController
-  respond_to :html
+  respond_to :html, :js
   load_and_authorize_resource :only => [:new,:destroy,:edit,:update]
 
   def index
@@ -14,6 +14,7 @@ class AdvertisementsController < ApplicationController
 
   def create
     @advertisement = current_user.advertisements.new(params[:advertisement])
+    @advertisement.to_new! if params[:advertisement][:state] == 'new'
     flash[:notice] = "Advertisement was successfully created." if @advertisement.save
     respond_with(@advertisement)
   end
@@ -27,5 +28,25 @@ class AdvertisementsController < ApplicationController
     @advertisement.destroy
     flash[:notice] = "Successfully destroyed advertisement."
     respond_with @advertisement
+  end
+
+  def change_state
+    advertisement = Advertisement.find_by_id(params[:id])
+    case params[:state]
+      when 'new'
+        advertisement.to_new!
+      when 'draft'
+        advertisement.to_drafts!
+      when 'approve'
+        advertisement.approve!
+      when 'cancel'
+        advertisement.cancel!
+      when 'published'
+        advertisement.publish!
+      when 'archived'
+        advertisement.archive!
+    end
+
+    @advertisements = Advertisement.all
   end
 end

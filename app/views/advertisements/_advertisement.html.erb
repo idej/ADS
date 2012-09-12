@@ -1,0 +1,28 @@
+<tr>
+  <td><%= link_to advertisement.id, advertisement_path(advertisement) %></td>
+  <td><%= advertisement.type.type_name %></td>
+  <td><%= advertisement.content %></td>
+  <td><%= advertisement.phone_number %></td>
+  <td>
+    <% if can? :update, advertisement  %>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_advertisement_path(advertisement), :class => 'btn btn-mini' %>
+    <% end %>
+    <% if can? :destroy, advertisement %>
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                    advertisement_path(advertisement),
+                    :method => :delete,
+                    :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                    :class => 'btn btn-mini btn-danger' %>
+    <% end %>
+    <% if can? :change_state, advertisement %>
+        <div id="states">
+        <% advertisement.possible_states(current_user).each do |state| %>
+            <%= link_to state, change_state_advertisement_path(:state => state, :id => advertisement.id),
+                        :remote => true %>
+
+        <% end %>
+        </div>
+    <% end %>
+  </td>
+</tr>

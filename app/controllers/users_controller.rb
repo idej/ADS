@@ -3,13 +3,8 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def create
-    if can? :change_role, @user
-      @user.role = params[:user][:role]
-    else
-      @user.role = :user
-    end
     @user = user.new(params[:user])
-    @user.role = :user
+    @user.role = params[:user][:role] if can? :change_role, @user
     flash[:notice] = "User was successfully created." if @user.save
     respond_with(@user)
   end

@@ -1,7 +1,11 @@
 ADS::Application.routes.draw do
   devise_for :users
   resources :types
-  resources :advertisements
+  resources :advertisements do
+    member do
+      get :change_state
+    end
+  end
   resources :users
 
   root :to => "advertisements#index"
