@@ -1,9 +1,9 @@
 class AdvertisementsController < ApplicationController
   respond_to :html, :js
-  load_and_authorize_resource :only => [:new,:destroy,:edit,:update]
+  load_and_authorize_resource
 
   def index
-    @advertisements = Advertisement.all
+    @advertisements = Advertisement.accessible_by(current_ability).page params[:page]
     respond_with @advertisements #index.html.erb
   end
 

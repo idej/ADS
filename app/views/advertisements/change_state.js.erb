@@ -2,5 +2,5 @@
 $(<%= state_id %>).empty();
 <% @states.each do |state| %>
     $(<%= state_id %>).append('<%= escape_javascript(link_to state, change_state_advertisement_path(:state => state, :id => @advertisement.id),
-     :remote => true) %>')
+     :remote => true) %> ')
 <% end %>

@@ -1,26 +1,26 @@
-<% if can? :read, Advertisement %>
-    <%- model_class = Advertisement -%>
-    <div class="page-header">
-      <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-    </div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th><%= model_class.human_attribute_name(:id) %></th>
-        <th><%= model_class.human_attribute_name(:type) %></th>
-        <th><%= model_class.human_attribute_name(:content) %></th>
-        <th><%= model_class.human_attribute_name(:phone_number) %></th>
-        <th><%=t '.actions', :default => t("helpers.actions") %></th>
-      </tr>
-      </thead>
-      <tbody id="ads">
-        <%= render :partial => @advertisements %>
-      </tbody>
-    </table>
-<% end %>
+<%- model_class = Advertisement -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:type) %></th>
+      <th><%= model_class.human_attribute_name(:content) %></th>
+      <th><%= model_class.human_attribute_name(:phone_number) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody id="ads">
+    <%= render :partial => @advertisements %>
+  </tbody>
+</table>
 
 <% if can? :create, Advertisement %>
     <%= link_to t('.new', :default => t("helpers.links.new")),
                 new_advertisement_path,
                 :class => 'btn btn-primary' %>
 <% end %>
+
+<%= will_paginate @advertisements %>

@@ -11,6 +11,7 @@ gem 'cancan'
 gem 'paperclip'
 gem 'rmagick'
 gem 'state_machine'
+gem 'will_paginate'
 
 
 # Gems used only for assets and not required

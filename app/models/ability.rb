@@ -9,8 +9,9 @@ class Ability
   end
 
   def user
-    can [:create, :read], Advertisement
-    can [:update, :destroy, :change_state], Advertisement, :user_id => @user.id
+    published_ads
+    can [:create], Advertisement
+    can [:update, :destroy, :read, :change_state], Advertisement, :user_id => @user.id
     can [:update, :read], User, :id => @user.id
   end
 
@@ -20,6 +21,10 @@ class Ability
   end
 
   def guest
-    can :read, Advertisement
+    published_ads
+  end
+
+  def published_ads
+    can :read, Advertisement, :state => "published"
   end
 end

@@ -2,6 +2,7 @@ class Advertisement < ActiveRecord::Base
   validates :content, :phone_number, :presence => true
   belongs_to :user
   belongs_to :type
+  self.per_page = 3
 
   attr_accessible :content, :create_date, :publicate_date, :phone_number, :type_id
 
