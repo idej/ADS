@@ -16,7 +16,7 @@
                     :class => 'btn btn-mini btn-danger' %>
     <% end %>
     <% if can? :change_state, advertisement %>
-        <div id="states">
+        <div id='<%= 'states_' + advertisement.id.to_s %>'>
         <% advertisement.possible_states(current_user).each do |state| %>
             <%= link_to state, change_state_advertisement_path(:state => state, :id => advertisement.id),
                         :remote => true %>

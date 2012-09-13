@@ -31,22 +31,21 @@ class AdvertisementsController < ApplicationController
   end
 
   def change_state
-    advertisement = Advertisement.find_by_id(params[:id])
+    @advertisement = Advertisement.find_by_id(params[:id])
     case params[:state]
       when 'new'
-        advertisement.to_new!
+        @advertisement.to_new!
       when 'draft'
-        advertisement.to_drafts!
+        @advertisement.to_drafts!
       when 'approve'
-        advertisement.approve!
+        @advertisement.approve!
       when 'cancel'
-        advertisement.cancel!
+        @advertisement.cancel!
       when 'published'
-        advertisement.publish!
+        @advertisement.publish!
       when 'archived'
-        advertisement.archive!
+        @advertisement.archive!
     end
-
-    @advertisements = Advertisement.all
+    @states = @advertisement.possible_states(current_user)
   end
 end
