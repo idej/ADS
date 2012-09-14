@@ -17,6 +17,8 @@ describe AdvertisementsController do
   describe "GET index" do
     before(:each) do
       @advertisement = FactoryGirl.create(:advertisement)
+      @advertisement.state = :published
+      @advertisement.save
     end
 
     it "assigns all advertisements as @advertisements for users" do

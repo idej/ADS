@@ -20,21 +20,21 @@ describe Advertisement do
   it "should valid possible states for default user and ads current state draft" do
     advertisement = Advertisement.new(:content => "123", :phone_number => "123123123")
     states = advertisement.possible_states(User.new)
-    states.should == :new
+    states.should == [:draft, :new]
   end
 
   it "should valid possible states for default user and ads current state cancel " do
     advertisement = Advertisement.new(:content => "123", :phone_number => "123123123")
     advertisement.state = 'canceled'
     states = advertisement.possible_states(User.new)
-    states.should == :draft
+    states.should == [:draft]
   end
 
   it "should valid possible states for default user and ads current state archive" do
     advertisement = Advertisement.new(:content => "123", :phone_number => "123123123")
     advertisement.state = 'archived'
     states = advertisement.possible_states(User.new)
-    states.should == :draft
+    states.should == [:draft]
   end
 
   it "should no possible state for user and ads with state new" do
