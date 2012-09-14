@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     @user = user.new(params[:user])
     @user.role = params[:user][:role] if can? :change_role, @user
     flash[:notice] = "User was successfully created." if @user.save
-    respond_with(@user)
+    respond_with @user
   end
 
   def update
