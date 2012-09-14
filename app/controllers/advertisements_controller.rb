@@ -4,12 +4,7 @@ class AdvertisementsController < ApplicationController
 
   def index
     @advertisements = Advertisement.accessible_by(current_ability).page params[:page]
-    respond_with @advertisements #index.html.erb
-  end
-
-  def show
-    @advertisement = Advertisement.find(params[:id])
-    respond_with @advertisement # show.html.erb
+    respond_with @advertisements
   end
 
   def create
