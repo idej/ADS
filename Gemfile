@@ -12,7 +12,7 @@ gem 'paperclip'
 gem 'rmagick'
 gem 'state_machine'
 gem 'will_paginate'
-
+gem 'gaffe'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -37,11 +37,11 @@ group :development, :test do
   gem 'simplecov', :require => false
   gem 'database_cleaner'
   gem 'email_spec'
+  gem 'fuubar'
 end
 
 gem 'enumerize'
 gem 'jquery-rails'
-gem 'fuubar'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

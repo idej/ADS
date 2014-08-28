@@ -18,6 +18,7 @@ class Ability
   def admin
     can [:read, :destroy, :change_state], Advertisement
     can :manage, [User, Type]
+    cannot :change_role, User, :id => @user.id
   end
 
   def guest
